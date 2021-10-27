@@ -11,6 +11,8 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: LoginscreenBinding
     var user = UserModel()
+    val users = ArrayList<UserModel>()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,11 +26,20 @@ class MainActivity : AppCompatActivity() {
              user.emailaddress = binding.editTextTextEmailAddress2.text.toString()
             user.password = binding.editTextTextPassword.text.toString()
 
-            Toast.makeText(this, "$user.emailaddress", Toast.LENGTH_SHORT).show()
+            if (user.emailaddress.isNotEmpty()) {
+
+                users.add(user.copy())
+                i("add Button Pressed: ${user}")
+                for (i in users.indices) {
+                    i("Users[$i]:${this.users[i]}")
+                }
+            }
+
+          //  Toast.makeText(this, "$user.emailaddress", Toast.LENGTH_SHORT).show()
         }
 
         binding.registerbutton.setOnClickListener() {
-            Toast.makeText(this, "$user.password", Toast.LENGTH_SHORT).show()
+          //  Toast.makeText(this, "$user.password", Toast.LENGTH_SHORT).show()
         }
     }
 }
