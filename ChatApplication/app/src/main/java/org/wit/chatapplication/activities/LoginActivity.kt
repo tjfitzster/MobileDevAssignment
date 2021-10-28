@@ -1,14 +1,13 @@
-package org.wit.chatapplication
+package org.wit.chatapplication.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import org.wit.chatapplication.databinding.LoginscreenBinding
 import org.wit.chatapplication.models.UserModel
-import timber.log.Timber
 
 
-class MainActivity : AppCompatActivity() {
+class LoginActivity : AppCompatActivity() {
 
     private lateinit var binding: LoginscreenBinding
     var user = UserModel()
