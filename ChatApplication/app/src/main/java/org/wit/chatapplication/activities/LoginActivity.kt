@@ -1,5 +1,6 @@
 package org.wit.chatapplication.activities
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
@@ -31,16 +32,20 @@ class LoginActivity : AppCompatActivity() {
                 for (i in users.indices) {
                     if (this.users[i].emailaddress.equals(user.emailaddress))
                     {
+                        val intent = Intent(this, MainActivity::class.java)
+                        startActivity(intent)
+
                         // email address correct
 
-                        if (this.users[i].password.equals(user.password))
-                        {
+                        //if (this.users[i].password.equals(user.password))
+                       // {
                             // PASSWROD correct
-                            Toast.makeText(this, "PASSWORD CORRECT", Toast.LENGTH_SHORT).show()
-                        }
-                        else{
-                            Toast.makeText(this, "PASSWORD INCORRECT", Toast.LENGTH_SHORT).show()
-                        }
+                       //     Toast.makeText(this, "PASSWORD CORRECT", Toast.LENGTH_SHORT).show()
+                     //   }
+                       // else{
+                       //     Toast.makeText(this, "PASSWORD INCORRECT", Toast.LENGTH_SHORT).show()
+                        //    Toast.makeText(this, "this.$users[i].password", Toast.LENGTH_SHORT).show()
+                      //  }
                     }
                     else{
                         Toast.makeText(this, "NO ONE IS REGISTERED WITH THAT EMAIL ADDRESS", Toast.LENGTH_SHORT).show()

@@ -4,12 +4,75 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import org.wit.chatapplication.R
 import org.wit.chatapplication.databinding.MessageItemBinding
 import org.wit.chatapplication.models.Message
 import org.wit.chatapplication.utils.Constants.RECIEVE_ID
 import org.wit.chatapplication.utils.Constants.SEND_ID
 
+
+class MessagingAdapter: RecyclerView.Adapter<MessagingAdapter.MainHolder>() {
+
+    private lateinit var binding: MessageItemBinding
+    var messagesList = mutableListOf<Message>()
+   // val messagesList = ArrayList<Message>()
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainHolder {
+        val binding = MessageItemBinding
+            .inflate(LayoutInflater.from(parent.context), parent, false)
+
+        return MainHolder(binding)
+
+    }
+
+    fun insertMessage(message: Message) {
+        messagesList.add(message)
+
+       // notifyItemInserted(messagesList.size)
+    }
+
+    override fun onBindViewHolder(holder: MainHolder, position: Int) {
+
+        val currentMessage = messagesList[holder.adapterPosition]
+
+        holder.bind(currentMessage)
+
+        when (currentMessage.id) {
+            SEND_ID -> {
+                binding.tvMessage.apply {
+                    text = currentMessage.message
+                    visibility = View.VISIBLE
+                }
+
+                binding.tvBotMessage.visibility = View.GONE
+            }
+            RECIEVE_ID -> {
+                binding.tvBotMessage.apply {
+                    text = currentMessage.message
+                    visibility = View.VISIBLE
+                }
+                binding.tvMessage.visibility = View.GONE
+            }
+        }
+    }
+
+    override fun getItemCount(): Int {
+        return messagesList.size
+    }
+
+    class MainHolder(private val binding : MessageItemBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+
+        fun bind(message: Message) {
+            binding.tvMessage.text = message.message
+           // binding.description.text = placemark.description
+        }
+    }
+
+
+    }
+
+
+/*
 class MessagingAdapter: RecyclerView.Adapter<MessagingAdapter.MessageViewHolder>() {
 
     private lateinit var binding: MessageItemBinding
@@ -29,9 +92,11 @@ class MessagingAdapter: RecyclerView.Adapter<MessagingAdapter.MessageViewHolder>
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MessageViewHolder {
-        return MessageViewHolder(
-            LayoutInflater.from(parent.context).inflate(R.layout.message_item, parent, false)
-        )
+        val binding = MessageItemBinding
+            .inflate(LayoutInflater.from(parent.context), parent, false)
+
+        return MessageViewHolder(binding)
+
     }
 
     override fun getItemCount(): Int {
@@ -76,7 +141,6 @@ class MessagingAdapter: RecyclerView.Adapter<MessagingAdapter.MessageViewHolder>
         notifyItemInserted(messagesList.size)
     }
 
-
-
-
 }
+
+*/
