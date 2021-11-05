@@ -25,10 +25,10 @@ class LoginActivity : AppCompatActivity() {
         user1.username = "Monty"
         user2.username = "Chris"
         user3.username = "TJ"
+
          //   Toast.makeText(this, "Welcome123", Toast.LENGTH_SHORT).show()
 
         binding.loginbutton.setOnClickListener() {
-
 
             this.user.username = binding.editTextTextPassword.text.toString()
 
