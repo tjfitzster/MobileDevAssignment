@@ -13,28 +13,42 @@ class LoginActivity : AppCompatActivity() {
 
     private lateinit var binding: LoginscreenBinding
     var user = UserModel()
+    var user1 = UserModel()
+    var user2 = UserModel()
+    var user3 = UserModel()
     val users = ArrayList<UserModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = LoginscreenBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
+        user1.username = "Monty"
+        user2.username = "Chris"
+        user3.username = "TJ"
          //   Toast.makeText(this, "Welcome123", Toast.LENGTH_SHORT).show()
 
         binding.loginbutton.setOnClickListener() {
 
-            user.emailaddress = binding.editTextTextEmailAddress2.text.toString()
-            user.password = binding.editTextTextPassword.text.toString()
 
-            if(users.size > 0){
+            this.user.username = binding.editTextTextPassword.text.toString()
+
+
+            val intent = Intent(this, MainActivity::class.java)
+
+                when (this.user.username) {
+                    user1.username -> startActivity(intent)
+                    user2.username -> startActivity(intent)
+                    user3.username -> startActivity(intent)
+                    else -> Toast.makeText(this, "INCORRECT USERNAME", Toast.LENGTH_SHORT).show()
+                }
+        //    if(users.size > 0){
                 // More than one user
 
-                for (i in users.indices) {
-                    if (this.users[i].emailaddress.equals(user.emailaddress))
-                    {
-                        val intent = Intent(this, MainActivity::class.java)
-                        startActivity(intent)
+              //  for (i in users.indices) {
+                //    if (this.users[i].emailaddress.equals(user.emailaddress))
+                   // {
+                    //    val intent = Intent(this, MainActivity::class.java)
+                     //   startActivity(intent)
 
                         // email address correct
 
@@ -47,28 +61,28 @@ class LoginActivity : AppCompatActivity() {
                        //     Toast.makeText(this, "PASSWORD INCORRECT", Toast.LENGTH_SHORT).show()
                         //    Toast.makeText(this, "this.$users[i].password", Toast.LENGTH_SHORT).show()
                       //  }
-                    }
-                    else{
-                        Toast.makeText(this, "NO ONE IS REGISTERED WITH THAT EMAIL ADDRESS", Toast.LENGTH_SHORT).show()
-                    }
+                  //  }
+                   // else{
+                    //    Toast.makeText(this, "NO ONE IS REGISTERED WITH THAT EMAIL ADDRESS", Toast.LENGTH_SHORT).show()
+                  //  }
 
-                }
-            }
-            else{
+              //  }
+          //  }
+          //  else{
                 //YOU MUST CREATE A NEW USER
-                Toast.makeText(this, "PLEASE REGISTER A USER", Toast.LENGTH_SHORT).show()
-            }
+             //   Toast.makeText(this, "PLEASE REGISTER A USER", Toast.LENGTH_SHORT).show()
+          //  }
         }
 
 
-        binding.registerbutton.setOnClickListener() {
-            Toast.makeText(this, "REGISTER BUTTON PRESSED", Toast.LENGTH_SHORT).show()
+      //  binding.registerbutton.setOnClickListener() {
+        //    Toast.makeText(this, "REGISTER BUTTON PRESSED", Toast.LENGTH_SHORT).show()
 
-            if ((user.emailaddress.isNotEmpty()) && (user.password.isNotEmpty())) {
-                users.add(user.copy())
-                Toast.makeText(this, "REGISTERING A NEW USER", Toast.LENGTH_SHORT).show()
-            }
+         //   if ((user.emailaddress.isNotEmpty()) && (user.password.isNotEmpty())) {
+            //    users.add(user.copy())
+             //   Toast.makeText(this, "REGISTERING A NEW USER", Toast.LENGTH_SHORT).show()
+          //  }
 
         }
     }
-}
+//}
