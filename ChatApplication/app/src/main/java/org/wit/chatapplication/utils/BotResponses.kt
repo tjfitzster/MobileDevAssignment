@@ -1,7 +1,7 @@
 package org.wit.chatapplication.utils
 
 import org.wit.chatapplication.utils.Constants.OPEN_GOOGLE
-import org.wit.chatapplication.utils.Constants.SEARCH
+import org.wit.chatapplication.utils.Constants.OPEN_SEARCH
 
 object BotResponses {
 
@@ -34,7 +34,6 @@ object BotResponses {
             message.contains("flip") &&  message.contains("coin") -> {
                 var r = (0..1).random()
                 val result = if (r == 0) "heads" else "tails"
-
                 "I flipped a coin and it esulted on $result"
             }
 
@@ -59,7 +58,7 @@ object BotResponses {
             }
 
             message.contains("search") -> {
-                SEARCH
+                OPEN_SEARCH
             }
 
             else ->

@@ -1,26 +1,38 @@
 package org.wit.chatapplication.activities
 
+
+import androidx.appcompat.app.AppCompatActivity
 import android.content.Intent
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
+
+
+
 import android.os.Bundle
+import org.wit.chatapplication.models.Message
+import org.wit.chatapplication.utils.Constants.RECIEVE_ID
+
+import org.wit.chatapplication.utils.Constants.SEND_ID
+import org.wit.chatapplication.utils.BotResponses
+import org.wit.chatapplication.utils.Constants.OPEN_GOOGLE
+import org.wit.chatapplication.utils.Constants.OPEN_SEARCH
+import org.wit.chatapplication.utils.Time
+
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.coroutines.*
 import org.wit.chatapplication.adapters.MessagingAdapter
 import org.wit.chatapplication.databinding.ActivityChatBinding
-import org.wit.chatapplication.utils.Constants.RECIEVE_ID
-import org.wit.chatapplication.utils.Constants.SEND_ID
-import org.wit.chatapplication.utils.Time
-import org.wit.chatapplication.models.Message
-import org.wit.chatapplication.utils.BotResponses
-import org.wit.chatapplication.utils.Constants.OPEN_GOOGLE
-import org.wit.chatapplication.utils.Constants.SEARCH
+
+
+
+
+
 
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityChatBinding
     private lateinit var adapter: MessagingAdapter
 
+    var messagesList = mutableListOf<Message>()
 
     private val botlist = listOf("MIKE","JIM","LUKE","KEN","TJ")
 
@@ -33,30 +45,12 @@ class MainActivity : AppCompatActivity() {
         recyclerView()
 
         clickEvents()
-               val random = (0..3).random()
+        val random = (0..3).random()
 
-           //   customMessage("Hello today you are speaking with ${botlist[random]}, how may I help you?")
+        customBotMessage("Hello today you are speaking with ${botlist[random]}, how may I help you?")
 
-           }
-
-    private fun recyclerView() {
-        adapter = MessagingAdapter()
-        binding.rvMessages.adapter = adapter
-        binding.rvMessages.layoutManager = LinearLayoutManager(applicationContext)
     }
 
-    private fun customMessage(message: String) {
-
-        GlobalScope.launch{
-            delay(1000)
-            withContext(Dispatchers.Main) {
-                val timeStamp = Time.timeStamp()
-                adapter.insertMessage(Message(message, RECIEVE_ID, timeStamp))
-            //    binding.rvMessages.scrollToPosition(adapter.itemCount - 1)
-            }
-        }
-    }
-/*
     private fun clickEvents() {
 
         //Send a message
@@ -73,6 +67,28 @@ class MainActivity : AppCompatActivity() {
                     binding.rvMessages.scrollToPosition(adapter.itemCount - 1)
 
                 }
+            }
+        }
+    }
+
+    private fun recyclerView() {
+        adapter = MessagingAdapter()
+        binding.rvMessages.adapter = adapter
+        binding.rvMessages.layoutManager = LinearLayoutManager(applicationContext)
+
+    }
+
+    override fun onStart() {
+        super.onStart()
+        //In case there are messages, scroll to bottom when re-opening app
+
+        GlobalScope.launch {
+            delay(100)
+
+            withContext(Dispatchers.Main) {
+                binding.rvMessages.scrollToPosition(adapter.itemCount - 1)
+
+
             }
         }
     }
@@ -125,7 +141,7 @@ class MainActivity : AppCompatActivity() {
                         site.data = Uri.parse("https://www.google.com/")
                         startActivity(site)
                     }
-                    SEARCH -> {
+                    OPEN_SEARCH -> {
                         val site = Intent(Intent.ACTION_VIEW)
                         val searchTerm: String? = message.substringAfterLast("search")
                         site.data = Uri.parse("https://www.google.com/search?&q=$searchTerm")
@@ -137,21 +153,12 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    override fun onStart() {
-        super.onStart()
-        //In case there are messages, scroll to bottom when re-opening app
-        GlobalScope.launch {
-            delay(100)
-            withContext(Dispatchers.Main) {
-                binding.rvMessages.scrollToPosition(adapter.itemCount - 1)
-            }
-        }
-    }
+
 
     private fun customBotMessage(message: String) {
 
         GlobalScope.launch {
-           delay(1000)
+            delay(1000)
             withContext(Dispatchers.Main) {
                 val timeStamp = Time.timeStamp()
                 messagesList.add(Message(message, RECIEVE_ID, timeStamp))
@@ -163,6 +170,6 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-           */
+
 
 }

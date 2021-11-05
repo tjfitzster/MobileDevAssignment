@@ -7,5 +7,5 @@ object Constants {
 
     const val OPEN_GOOGLE = "OPEN GOOGLE"
 
-    const val SEARCH = "OPEN SEARCH"
+    const val OPEN_SEARCH = "OPEN SEARCH"
 }
