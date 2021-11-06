@@ -17,19 +17,17 @@ class LoginActivity : AppCompatActivity() {
     var user2 = UserModel()
     var user3 = UserModel()
 
-    var loggedin: Boolean = false
+    private var loggedin: Boolean = false
 
-    val users = ArrayList<UserModel>()
+    private val users = ArrayList<UserModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = LoginscreenBinding.inflate(layoutInflater)
 
 
-
         setContentView(binding.root)
-
-
+        // JUST PRELOADING THE USER MODEL WITH PEOPLE
 
         user1.username = "Monty"
         user1.password = "Password123"
@@ -38,13 +36,11 @@ class LoginActivity : AppCompatActivity() {
         user3.username = "TJ"
         user3.password = "Password123"
 
-        Toast.makeText(this, "BEFORE LOADING", Toast.LENGTH_SHORT).show()
+
         // jsut pre laodign a list
         users.add(user1.copy())
         users.add(user2.copy())
         users.add(user3.copy())
-
-       // Toast.makeText(this, "AFTER LOADING", Toast.LENGTH_SHORT).show()
 
 
 
@@ -70,29 +66,27 @@ class LoginActivity : AppCompatActivity() {
         }
 
        binding.registerbutton.setOnClickListener() {
- // just a bit of validaton
+           // just a bit of validaton
+           this.user.username = binding.username.text.toString()
+           this.user.password = binding.password.text.toString()
 
-           // for (i in users.indices) {
-              //  if (users[i].username.equals(this.user.username)) // checking if username ALRERADY
-           //     {
-               //     Toast.makeText(this, "USER ALREADY EXISTS", Toast.LENGTH_SHORT).show()
-         //       }
-             //   else
-               // {
-              //      Toast.makeText(this, "USER DOESNT EXIST", Toast.LENGTH_SHORT).show()
-                  //  if (this.user.password.length < 5) // checking password length
-                    //{
-                   //     Toast.makeText(this, "PASSWORD MUST BE GREATER THAN 5 CHARACTERS", Toast.LENGTH_SHORT).show()
-                  //  }
-                 //   else{
-                   //     users.add(user.copy())
-                  //  }
-             //   }
-         //   }
+           for (i in users.indices) {
+               if (users[i].username.equals(this.user.username))  // checking if username match
+               {
+                   Toast.makeText(this, "USER ALREADY EXISTS ", Toast.LENGTH_SHORT).show()
+               } else {
+                   if(this.user.password.length < 5)
+                   {
+                       Toast.makeText(this, "PASSWORD MUST BE MORE THAN 4 CHARACTERS ", Toast.LENGTH_SHORT).show()
+                   }
+                   else{
+                       users.add(user.copy())
+                       Toast.makeText(this, "NEW USER ADDED ", Toast.LENGTH_SHORT).show()
+                   }
 
-      //  }
+               }
+           }
 
-
-
+       }
     }
 }
