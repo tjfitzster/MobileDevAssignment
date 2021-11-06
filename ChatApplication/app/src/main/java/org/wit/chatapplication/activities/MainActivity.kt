@@ -2,15 +2,13 @@ package org.wit.chatapplication.activities
 
 
 import androidx.appcompat.app.AppCompatActivity
-import android.content.Intent
+
 import android.net.Uri
-
-
-
 import android.os.Bundle
 import org.wit.chatapplication.models.Message
 import org.wit.chatapplication.utils.Constants.RECIEVE_ID
-
+import android.content.Intent
+import androidx.activity.result.ActivityResultLauncher
 import org.wit.chatapplication.utils.Constants.SEND_ID
 import org.wit.chatapplication.utils.BotResponses
 import org.wit.chatapplication.utils.Constants.OPEN_GOOGLE
@@ -18,17 +16,16 @@ import org.wit.chatapplication.utils.Constants.OPEN_SEARCH
 import org.wit.chatapplication.utils.Time
 
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.gms.maps.GoogleMap
 import kotlinx.coroutines.*
 import org.wit.chatapplication.adapters.MessagingAdapter
 import org.wit.chatapplication.databinding.ActivityChatBinding
-
-
-
-
-
+import org.wit.chatapplication.models.Location
+import org.wit.chatapplication.utils.Constants.MAP
 
 
 class MainActivity : AppCompatActivity() {
+
     private lateinit var binding: ActivityChatBinding
     private lateinit var adapter: MessagingAdapter
 
@@ -40,20 +37,20 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityChatBinding.inflate(layoutInflater)
+
         setContentView(binding.root)
 
         recyclerView()
 
         clickEvents()
         val random = (0..3).random()
-
         customBotMessage("Hello today you are speaking with ${botlist[random]}, how may I help you?")
 
     }
 
     private fun clickEvents() {
 
-        //Send a message
+
         binding.btnSend.setOnClickListener {
             sendMessage()
         }
@@ -62,10 +59,8 @@ class MainActivity : AppCompatActivity() {
         binding.etMessage.setOnClickListener {
             GlobalScope.launch {
                 delay(100)
-
                 withContext(Dispatchers.Main) {
                     binding.rvMessages.scrollToPosition(adapter.itemCount - 1)
-
                 }
             }
         }
@@ -88,12 +83,9 @@ class MainActivity : AppCompatActivity() {
             withContext(Dispatchers.Main) {
                 binding.rvMessages.scrollToPosition(adapter.itemCount - 1)
 
-
             }
         }
     }
-
-
 
 
     private fun sendMessage() {
@@ -115,6 +107,7 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun botResponse(message: String) {
+
         val timeStamp = Time.timeStamp()
 
         GlobalScope.launch {
@@ -148,12 +141,20 @@ class MainActivity : AppCompatActivity() {
                         startActivity(site)
                     }
 
+                    MAP -> {
+                        val name: String? = message.substringAfterLast("map")
+                        val intent = Intent(
+                            Intent.ACTION_VIEW,
+                            Uri.parse("google.navigation:q=an+$name"));
+                          //  Uri.parse("geo:0,0?q=37.423156,-122.084917 (" + name.toString() + ")"))
+                        startActivity(intent)
+
+                    }
+
                 }
             }
         }
     }
-
-
 
     private fun customBotMessage(message: String) {
 
@@ -163,7 +164,6 @@ class MainActivity : AppCompatActivity() {
                 val timeStamp = Time.timeStamp()
                 messagesList.add(Message(message, RECIEVE_ID, timeStamp))
                 adapter.insertMessage(Message(message, RECIEVE_ID, timeStamp))
-
                 binding.rvMessages.scrollToPosition(adapter.itemCount - 1)
             }
         }

@@ -17,12 +17,20 @@ class LoginActivity : AppCompatActivity() {
     var user2 = UserModel()
     var user3 = UserModel()
 
+    var loggedin: Boolean = false
+
     val users = ArrayList<UserModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = LoginscreenBinding.inflate(layoutInflater)
+
+
+
         setContentView(binding.root)
+
+
+
         user1.username = "Monty"
         user1.password = "Password123"
         user2.username = "Chris"
@@ -30,9 +38,15 @@ class LoginActivity : AppCompatActivity() {
         user3.username = "TJ"
         user3.password = "Password123"
 
+        Toast.makeText(this, "BEFORE LOADING", Toast.LENGTH_SHORT).show()
+        // jsut pre laodign a list
         users.add(user1.copy())
         users.add(user2.copy())
         users.add(user3.copy())
+
+       // Toast.makeText(this, "AFTER LOADING", Toast.LENGTH_SHORT).show()
+
+
 
         val intent = Intent(this, MainActivity::class.java)
 
@@ -41,70 +55,44 @@ class LoginActivity : AppCompatActivity() {
             this.user.username = binding.username.text.toString()
             this.user.password = binding.password.text.toString()
 
-            //val intent = Intent(this, MainActivity::class.java)
-          //      when (this.user.username) {
-             //       user1.username -> startActivity(intent)
-                  //  user2.username -> startActivity(intent)
-          //          user3.username -> startActivity(intent)
-                //    else -> Toast.makeText(this, "INCORRECT USERNAME", Toast.LENGTH_SHORT).show()
-             //   }
-        //    if(users.size > 0){
-                // More than one user
 
-                for (i in users.indices) {
-                    if (users[i].username.equals(this.user.username)) // checking if username match
-                    {
-                        if(users[i].password.equals(this.user.password)) {
-                            startActivity(intent)
-                        }
-                        else{
-                            Toast.makeText(this, "INCORRECT PASSWORD", Toast.LENGTH_SHORT).show()
-                        }
-                    }
-                    else{
-                        Toast.makeText(this, "USERNAME NOT RECOGNISED", Toast.LENGTH_SHORT).show()
+            for (i in users.indices) {
+                if ((users[i].username.equals(this.user.username)) && (users[i].password.equals(this.user.password))) // checking if username match
+                {       loggedin = true
+                        startActivity(intent)
+                }
+                else{
+                    if (loggedin == false) {
+                       // Toast.makeText(this, "USER NOT REGISTERED ", Toast.LENGTH_SHORT).show()
                     }
                 }
-                   // {
-                    //    val intent = Intent(this, MainActivity::class.java)
-                    //    val intent = Intent(this, MainActivity::class.java)
-                     //   startActivity(intent)
-
-                        // email address correct
-
-                        //if (this.users[i].password.equals(user.password))
-                       // {
-                            // PASSWROD correct
-                       //     Toast.makeText(this, "PASSWORD CORRECT", Toast.LENGTH_SHORT).show()
-                     //   }
-                       // else{
-
-                        //    Toast.makeText(this, "this.$users[i].password", Toast.LENGTH_SHORT).show()
-                      //  }
-                  //  }
-                   // else{
-                    //    Toast.makeText(this, "NO ONE IS REGISTERED WITH THAT EMAIL ADDRESS", Toast.LENGTH_SHORT).show()
-                  //  }
-
-
-          //  }
-          //  else{
-                //YOU MUST CREATE A NEW USER
-             //   Toast.makeText(this, "PLEASE REGISTER A USER", Toast.LENGTH_SHORT).show()
-          //  }
+            }
         }
 
+       binding.registerbutton.setOnClickListener() {
+ // just a bit of validaton
+
+           // for (i in users.indices) {
+              //  if (users[i].username.equals(this.user.username)) // checking if username ALRERADY
+           //     {
+               //     Toast.makeText(this, "USER ALREADY EXISTS", Toast.LENGTH_SHORT).show()
+         //       }
+             //   else
+               // {
+              //      Toast.makeText(this, "USER DOESNT EXIST", Toast.LENGTH_SHORT).show()
+                  //  if (this.user.password.length < 5) // checking password length
+                    //{
+                   //     Toast.makeText(this, "PASSWORD MUST BE GREATER THAN 5 CHARACTERS", Toast.LENGTH_SHORT).show()
+                  //  }
+                 //   else{
+                   //     users.add(user.copy())
+                  //  }
+             //   }
+         //   }
+
+      //  }
 
 
 
-      //  binding.registerbutton.setOnClickListener() {
-        //    Toast.makeText(this, "REGISTER BUTTON PRESSED", Toast.LENGTH_SHORT).show()
-
-         //   if ((user.emailaddress.isNotEmpty()) && (user.password.isNotEmpty())) {
-            //    users.add(user.copy())
-             //   Toast.makeText(this, "REGISTERING A NEW USER", Toast.LENGTH_SHORT).show()
-          //  }
-
-        }
     }
-//}
+}

@@ -1,5 +1,10 @@
 package org.wit.chatapplication.utils
 
+import android.content.Intent
+import androidx.core.content.ContextCompat.startActivity
+import org.wit.chatapplication.activities.LoginActivity
+import org.wit.chatapplication.activities.MapsActivity
+import org.wit.chatapplication.utils.Constants.MAP
 import org.wit.chatapplication.utils.Constants.OPEN_GOOGLE
 import org.wit.chatapplication.utils.Constants.OPEN_SEARCH
 
@@ -16,7 +21,7 @@ object BotResponses {
             message.contains("hello") -> {
                 when (random){
                     0 -> "Hello There!"
-                    1 -> "Sup"
+                    1 -> "Alo"
                     2 -> "Ola"
                     else -> "error"
                 }
@@ -37,18 +42,6 @@ object BotResponses {
                 "I flipped a coin and it esulted on $result"
             }
 
-            message.contains("solve") -> {
-                val equation: String = message.substringAfter("solve")
-
-                return try{
-                    val answer = SolveMath.solveMath(equation ?: "0")
-                    answer.toString()
-
-                } catch(e: Exception){
-                    "Sorry I cannot solve that"
-                }
-            }
-
             message.contains("time") &&  message.contains("?") -> {
                 Time.timeStamp()
             }
@@ -60,7 +53,9 @@ object BotResponses {
             message.contains("search") -> {
                 OPEN_SEARCH
             }
-
+            message.contains("map") -> {
+                MAP
+            }
             else ->
                 when (random){
                     0 -> "I don't understand"
