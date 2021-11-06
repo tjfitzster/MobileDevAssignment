@@ -51,7 +51,6 @@ class LoginActivity : AppCompatActivity() {
             this.user.username = binding.username.text.toString()
             this.user.password = binding.password.text.toString()
 
-
             for (i in users.indices) {
                 if ((users[i].username.equals(this.user.username)) && (users[i].password.equals(this.user.password))) // checking if username match
                 {       loggedin = true
