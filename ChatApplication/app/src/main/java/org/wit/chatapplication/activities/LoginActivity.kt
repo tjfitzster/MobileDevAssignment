@@ -34,22 +34,37 @@ class LoginActivity : AppCompatActivity() {
         users.add(user2.copy())
         users.add(user3.copy())
 
+        val intent = Intent(this, MainActivity::class.java)
+
         binding.loginbutton.setOnClickListener() {
 
-            this.user.username = binding.editTextTextPassword.text.toString()
+            this.user.username = binding.username.text.toString()
+            this.user.password = binding.password.text.toString()
 
-            val intent = Intent(this, MainActivity::class.java)
-                when (this.user.username) {
-                    user1.username -> startActivity(intent)
-                    user2.username -> startActivity(intent)
-                    user3.username -> startActivity(intent)
-                    else -> Toast.makeText(this, "INCORRECT USERNAME", Toast.LENGTH_SHORT).show()
-                }
+            //val intent = Intent(this, MainActivity::class.java)
+          //      when (this.user.username) {
+             //       user1.username -> startActivity(intent)
+                  //  user2.username -> startActivity(intent)
+          //          user3.username -> startActivity(intent)
+                //    else -> Toast.makeText(this, "INCORRECT USERNAME", Toast.LENGTH_SHORT).show()
+             //   }
         //    if(users.size > 0){
                 // More than one user
 
-              //  for (i in users.indices) {
-                //    if (this.users[i].emailaddress.equals(user.emailaddress))
+                for (i in users.indices) {
+                    if (users[i].username.equals(this.user.username)) // checking if username match
+                    {
+                        if(users[i].password.equals(this.user.password)) {
+                            startActivity(intent)
+                        }
+                        else{
+                            Toast.makeText(this, "INCORRECT PASSWORD", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                    else{
+                        Toast.makeText(this, "USERNAME NOT RECOGNISED", Toast.LENGTH_SHORT).show()
+                    }
+                }
                    // {
                     //    val intent = Intent(this, MainActivity::class.java)
                     //    val intent = Intent(this, MainActivity::class.java)
@@ -63,7 +78,7 @@ class LoginActivity : AppCompatActivity() {
                        //     Toast.makeText(this, "PASSWORD CORRECT", Toast.LENGTH_SHORT).show()
                      //   }
                        // else{
-                       //     Toast.makeText(this, "PASSWORD INCORRECT", Toast.LENGTH_SHORT).show()
+
                         //    Toast.makeText(this, "this.$users[i].password", Toast.LENGTH_SHORT).show()
                       //  }
                   //  }
@@ -71,7 +86,7 @@ class LoginActivity : AppCompatActivity() {
                     //    Toast.makeText(this, "NO ONE IS REGISTERED WITH THAT EMAIL ADDRESS", Toast.LENGTH_SHORT).show()
                   //  }
 
-              //  }
+
           //  }
           //  else{
                 //YOU MUST CREATE A NEW USER
