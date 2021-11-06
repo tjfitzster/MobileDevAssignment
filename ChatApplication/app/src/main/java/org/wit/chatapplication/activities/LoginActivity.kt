@@ -16,6 +16,7 @@ class LoginActivity : AppCompatActivity() {
     var user1 = UserModel()
     var user2 = UserModel()
     var user3 = UserModel()
+
     val users = ArrayList<UserModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,18 +24,21 @@ class LoginActivity : AppCompatActivity() {
         binding = LoginscreenBinding.inflate(layoutInflater)
         setContentView(binding.root)
         user1.username = "Monty"
+        user1.password = "Password123"
         user2.username = "Chris"
+        user2.password = "Password123"
         user3.username = "TJ"
+        user3.password = "Password123"
 
-         //   Toast.makeText(this, "Welcome123", Toast.LENGTH_SHORT).show()
+        users.add(user1.copy())
+        users.add(user2.copy())
+        users.add(user3.copy())
 
         binding.loginbutton.setOnClickListener() {
 
             this.user.username = binding.editTextTextPassword.text.toString()
 
-
             val intent = Intent(this, MainActivity::class.java)
-
                 when (this.user.username) {
                     user1.username -> startActivity(intent)
                     user2.username -> startActivity(intent)
@@ -47,6 +51,7 @@ class LoginActivity : AppCompatActivity() {
               //  for (i in users.indices) {
                 //    if (this.users[i].emailaddress.equals(user.emailaddress))
                    // {
+                    //    val intent = Intent(this, MainActivity::class.java)
                     //    val intent = Intent(this, MainActivity::class.java)
                      //   startActivity(intent)
 
@@ -73,6 +78,8 @@ class LoginActivity : AppCompatActivity() {
              //   Toast.makeText(this, "PLEASE REGISTER A USER", Toast.LENGTH_SHORT).show()
           //  }
         }
+
+
 
 
       //  binding.registerbutton.setOnClickListener() {
